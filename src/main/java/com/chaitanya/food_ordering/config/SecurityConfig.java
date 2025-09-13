@@ -29,6 +29,9 @@ public class SecurityConfig {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private JwtFilter jwtFilter;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws  Exception{
         return http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -47,7 +50,8 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource(){
         return request -> {
             CorsConfiguration cors = new CorsConfiguration();
-            cors.setAllowedOrigins(Arrays.asList("http://localhost:3000","http://host"));
+//            cors.setAllowedOrigins(Collections.singletonList("*"));
+//            cors.setAllowedOrigins(Arrays.asList("http://localhost:3000","http://host"));
             cors.setAllowedMethods(Collections.singletonList("*"));
             cors.setAllowedHeaders(Collections.singletonList("*"));
             cors.setExposedHeaders(Arrays.asList("Authorization"));
