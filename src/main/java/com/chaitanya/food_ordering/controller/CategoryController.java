@@ -28,9 +28,9 @@ public class CategoryController {
     private RestaurantService restaurantService;
 
     @PostMapping("/admin/category")
-    public ResponseEntity<Category> createCategory(String name, @RequestHeader("Authorization") String jwt) throws Exception{
+    public ResponseEntity<Category> createCategory(@RequestBody Category reqCategory, @RequestHeader("Authorization") String jwt) throws Exception{
         Users user = userService.userFromToken(jwt);
-        Category category = categoryService.createCategory(name,user.getId());
+        Category category = categoryService.createCategory(reqCategory.getName(),user.getId());
         return new ResponseEntity<>(category, HttpStatus.CREATED);
     }
 
