@@ -25,7 +25,7 @@ public class CartItem {
     @ManyToOne
     private Food food;
 
-    private int quantity;
+    private Long quantity;
 
     private List<String> ingredients;
 
