@@ -10,7 +10,7 @@ import java.util.UUID;
 public class AddCartItemRequest {
 
     private UUID foodId;
-    private Integer quantity;
+    private Long quantity;
     private List<String> ingredients;
 
 }

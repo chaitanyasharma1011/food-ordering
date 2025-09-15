@@ -19,7 +19,7 @@ public class OrderItem {
     private UUID id;
     @ManyToOne
     private Food food;
-    private  int quantity;
+    private Long quantity;
     private Long totalPrice;
     private List<String> ingredients;
 }
