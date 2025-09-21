@@ -11,3 +11,9 @@ export interface Restaurant {
   image: string;
   open: boolean;
 }
+
+export interface Choices {
+  id: string;
+  option: string;
+  label: string;
+}
