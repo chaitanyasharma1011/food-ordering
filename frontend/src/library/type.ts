@@ -17,3 +17,19 @@ export interface Choices {
   option: string;
   label: string;
 }
+
+export interface Address {
+  id: string;
+  address: string;
+  city: string;
+  state: string;
+  landmark?: string;
+  pincode: number;
+}
+
+// private UUID id;
+// private String address;
+// private String city;
+// private String state;
+// private String landmark;
+// private String pincode;

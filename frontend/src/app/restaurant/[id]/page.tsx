@@ -87,33 +87,35 @@ export default function page({ params }: { params: { id: string } }) {
     </div>
   );
   return (
-    <div className="p-4 max-w-[1520px]">
-      <Carousel<Restaurant>
-        itemsPerSlide={2}
-        slideItems={1}
-        itemsList={restaurants}
-        renderItem={(restaurant) => (
-          <Image
-            alt={restaurant.name}
-            src={restaurant.image}
-            width={200}
-            height={200}
-            className="w-full h-[50vh] object-contain z-20"
-          />
-        )}
-      />
-      <Divider sx={{ marginTop: "3rem", marginBottom: "3rem" }} />
-      <div className="flex space-x-4 w-full">
-        <Filters />
-        <div className="flex-1">
-          {FoodItems.map((food) => (
-            <MenuItem
-              key={food.id}
-              food={food}
-              ingredients={ingredients}
-              dispatchIng={dispatchIng}
+    <div className="max-w-[1520px] mx-auto">
+      <div className="p-4 max-w-[1520px]">
+        <Carousel<Restaurant>
+          itemsPerSlide={2}
+          slideItems={1}
+          itemsList={restaurants}
+          renderItem={(restaurant) => (
+            <Image
+              alt={restaurant.name}
+              src={restaurant.image}
+              width={200}
+              height={200}
+              className="w-full h-[50vh] object-contain z-20"
             />
-          ))}
+          )}
+        />
+        <Divider sx={{ marginTop: "3rem", marginBottom: "3rem" }} />
+        <div className="flex space-x-4 w-full">
+          <Filters />
+          <div className="flex-1">
+            {FoodItems.map((food) => (
+              <MenuItem
+                key={food.id}
+                food={food}
+                ingredients={ingredients}
+                dispatchIng={dispatchIng}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>

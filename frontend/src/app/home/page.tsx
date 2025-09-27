@@ -5,7 +5,7 @@ import Handpickedfavs from "./_components/handpicked-favs";
 
 export default function Home() {
   return (
-    <div>
+    <div className="max-w-[1520px] mx-auto">
       <HeroSection />
       <TopMeals />
       <Handpickedfavs />
