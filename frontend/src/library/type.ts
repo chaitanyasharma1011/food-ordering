@@ -27,9 +27,36 @@ export interface Address {
   pincode: number;
 }
 
-// private UUID id;
-// private String address;
-// private String city;
-// private String state;
-// private String landmark;
-// private String pincode;
+export interface Order {
+  id: string;
+  status: string;
+  amount: number;
+  restaurant: string;
+}
+
+// @Id
+//     @GeneratedValue(strategy = GenerationType.UUID)
+//     private UUID id;
+
+//     @ManyToOne
+//     private Users customer;
+
+//     @JsonIgnore
+//     @ManyToOne
+//     private Restaurant restaurant;
+
+//     private Long totalAmount;
+
+//     private String orderStatus;
+
+//     private Date createdAt;
+
+//     @ManyToOne
+//     private Address deliveryAddress;
+
+//     @OneToMany
+//     private List<OrderItem> items;
+
+//     private int totalItem;
+
+//     private int totalPrice;

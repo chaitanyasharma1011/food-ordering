@@ -5,7 +5,6 @@ import { inter, montserrat, gelasio } from "public/assets/fonts/font";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import Theme from "@/library/muiTheme";
-import Header from "./_layout/header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,10 +32,7 @@ export default function RootLayout({
         className={`${inter.className} ${inter.variable} ${montserrat.variable} ${gelasio.variable}`}
       >
         <AppRouterCacheProvider>
-          <ThemeProvider theme={Theme}>
-            <Header />
-            {children}
-          </ThemeProvider>
+          <ThemeProvider theme={Theme}>{children}</ThemeProvider>
         </AppRouterCacheProvider>
       </body>
     </html>

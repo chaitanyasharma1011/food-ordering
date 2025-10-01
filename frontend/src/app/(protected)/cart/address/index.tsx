@@ -2,12 +2,12 @@
 
 import { Address } from "@/library/type";
 import { v4 } from "uuid";
-import Card from "./card";
 import { MdOutlineAddLocationAlt } from "react-icons/md";
 import { Button } from "@mui/material";
 import Modal from "@/components/modal";
 import { useState } from "react";
-import NewAddress from "./new-address";
+import Card from "@/components/cards/address";
+import NewAddress from "@/components/layouts/address/new-address";
 
 export default function Addresses() {
   const addresses: Address[] = [
@@ -41,7 +41,7 @@ export default function Addresses() {
       </h2>
       <div className="w-full grid grid-cols-4 gap-6 mt-8">
         {addresses.map((address) => (
-          <Card address={address} key={address?.id} />
+          <Card address={address} choice={true} key={address?.id} />
         ))}
       </div>
       <div className="bg-[#1E1E1E] shadow-[rgba(255,255,255,0.08)] shadow-sm p-4 space-x-4 inline-flex mt-8 mx-auto">
