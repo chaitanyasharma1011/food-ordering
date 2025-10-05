@@ -1,6 +1,7 @@
 package com.chaitanya.food_ordering.controller;
 
 import com.chaitanya.food_ordering.model.Restaurant;
+import com.chaitanya.food_ordering.response.ApiResponse;
 import com.chaitanya.food_ordering.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,9 +24,9 @@ public class UserRestaurantController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<Restaurant>> searchRestaurant(){
+    public ResponseEntity<ApiResponse<List<Restaurant>>> searchRestaurant(){
         List<Restaurant> restaurants = restaurantService.fetchAllRestaurant();
-        return new ResponseEntity<>(restaurants,HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse<>(true,"Fetched restaurants",restaurants,HttpStatus.OK.value()) ,HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

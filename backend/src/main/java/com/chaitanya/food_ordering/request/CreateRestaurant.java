@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 public class CreateRestaurant {
     private String name;
-    private String Description;
+    private String description;
     private String cuisineType;
     private Address address;
     private ContactInformation contactInformation;

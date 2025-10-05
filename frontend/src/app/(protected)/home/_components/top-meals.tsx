@@ -12,49 +12,41 @@ export default function TopMeals() {
       id: v4(),
       name: "Sandwich",
       image:
-        "https://images.pexels.com/photos/2280545/pexels-photo-2280545.jpeg",
+        "https://images.pexels.com/photos/1647163/pexels-photo-1647163.jpeg",
     },
     {
       id: v4(),
       name: "South Indian",
       image:
-        "https://images.pexels.com/photos/2280545/pexels-photo-2280545.jpeg",
+        "https://images.pexels.com/photos/5560763/pexels-photo-5560763.jpeg",
     },
     {
       id: v4(),
       name: "Desserts",
-      image:
-        "https://images.pexels.com/photos/2280545/pexels-photo-2280545.jpeg",
+      image: "https://images.pexels.com/photos/887853/pexels-photo-887853.jpeg",
     },
     {
       id: v4(),
       name: "Appetizers",
       image:
-        "https://images.pexels.com/photos/2280545/pexels-photo-2280545.jpeg",
+        "https://images.pexels.com/photos/1437267/pexels-photo-1437267.jpeg",
     },
     {
       id: v4(),
       name: "Salad",
       image:
-        "https://images.pexels.com/photos/2280545/pexels-photo-2280545.jpeg",
+        "https://images.pexels.com/photos/1213710/pexels-photo-1213710.jpeg",
     },
     {
       id: v4(),
-      name: "Breakfast",
+      name: "Biryani",
       image:
-        "https://images.pexels.com/photos/2280545/pexels-photo-2280545.jpeg",
+        "https://images.pexels.com/photos/17649369/pexels-photo-17649369.jpeg",
     },
     {
       id: v4(),
-      name: "Lunch",
-      image:
-        "https://images.pexels.com/photos/2280545/pexels-photo-2280545.jpeg",
-    },
-    {
-      id: v4(),
-      name: "Dinner",
-      image:
-        "https://images.pexels.com/photos/2280545/pexels-photo-2280545.jpeg",
+      name: "Pizza",
+      image: "https://images.pexels.com/photos/825661/pexels-photo-825661.jpeg",
     },
   ];
 

@@ -5,6 +5,8 @@ import { inter, montserrat, gelasio } from "public/assets/fonts/font";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import Theme from "@/library/muiTheme";
+import ReduxProvider from "@/redux/provider";
+import Notification from "@/components/ui/notification";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +34,12 @@ export default function RootLayout({
         className={`${inter.className} ${inter.variable} ${montserrat.variable} ${gelasio.variable}`}
       >
         <AppRouterCacheProvider>
-          <ThemeProvider theme={Theme}>{children}</ThemeProvider>
+          <ThemeProvider theme={Theme}>
+            <ReduxProvider>
+              {children}
+              <Notification />
+            </ReduxProvider>
+          </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
     </html>

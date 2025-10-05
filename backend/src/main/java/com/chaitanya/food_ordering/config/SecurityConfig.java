@@ -36,6 +36,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws  Exception{
         return http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(request ->
                         request.requestMatchers("/api/admin/**").hasAnyRole("RESTAURANT_OWNER","ADMIN")
                         .requestMatchers("/api").authenticated()
@@ -50,12 +51,12 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource(){
         return request -> {
             CorsConfiguration cors = new CorsConfiguration();
-//            cors.setAllowedOrigins(Collections.singletonList("*"));
+            cors.setAllowedOrigins(Collections.singletonList("*"));
 //            cors.setAllowedOrigins(Arrays.asList("http://localhost:3000","http://host"));
             cors.setAllowedMethods(Collections.singletonList("*"));
             cors.setAllowedHeaders(Collections.singletonList("*"));
             cors.setExposedHeaders(Arrays.asList("Authorization"));
-            cors.setAllowCredentials(true);
+//            cors.setAllowCredentials(true);
             return cors;
         };
     }

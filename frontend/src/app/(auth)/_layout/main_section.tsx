@@ -27,7 +27,7 @@ export default function MainSection({ children }: { children: ReactNode }) {
           className="w-[350px] h-auto"
         />
       </div>
-      <div className="shadow-[0_4px_10px_rgba(0,0,0,0.1),0_1px_3px_rgba(0,0,0,0.08)]  lg:min-h-full w-full lg:min-w-[500px] lg:w-[500px] rounded-[8px] px-0 lg:px-[32px] pt-8 lg:pt-0 bg-gradient-to-r from-gray-50 via-white to-gray-50 flex flex-col justify-center items-center">
+      <div className="lg:shadow-[0_4px_10px_rgba(0,0,0,0.1),0_1px_3px_rgba(0,0,0,0.08)]  lg:min-h-full w-full lg:min-w-[500px] lg:w-[500px] rounded-[8px] px-0 lg:px-[32px] pt-8 lg:pt-0 lg:bg-gradient-to-r from-gray-50 via-white to-gray-50 flex flex-col justify-center items-center">
         {children}
       </div>
     </div>

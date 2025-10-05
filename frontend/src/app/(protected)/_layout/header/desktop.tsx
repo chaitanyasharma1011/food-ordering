@@ -1,12 +1,16 @@
 "use client";
 
 import globalTheme from "@/library/globalTheme";
+import { userState } from "@/redux/slices/user/userSlice";
 import { Avatar, Badge } from "@mui/material";
 import React, { useEffect } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 export default function Desktop() {
+  const { user = {} } = useSelector(userState);
+
   useEffect(() => {
     const header = document.getElementById("grabit-app-header");
     const handleScroll = () => {
@@ -37,7 +41,10 @@ export default function Desktop() {
           <div className="flex space-x-10 items-center">
             <FaSearch color="white" size={24} />
             <Avatar sx={{ width: 32, height: 32 }} />
-            <Badge badgeContent={4} color="secondary">
+            <Badge
+              badgeContent={`${user?.cart?.items?.length || 0}`}
+              color="secondary"
+            >
               <FaShoppingCart color="white" size={24} />
             </Badge>
           </div>

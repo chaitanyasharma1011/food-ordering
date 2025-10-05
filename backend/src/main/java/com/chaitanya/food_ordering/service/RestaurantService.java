@@ -25,10 +25,11 @@ public class RestaurantService {
         newRest.setDescription(restaurant.getDescription());
         newRest.setOpeningHours(restaurant.getOpeningHours());
         newRest.setAddress(restaurant.getAddress());
-        newRest.setCuisineType(newRest.getCuisineType());
-        newRest.setContactInformation(newRest.getContactInformation());
+        newRest.setCuisineType(restaurant.getCuisineType());
+        newRest.setContactInformation(restaurant.getContactInformation());
         newRest.setRegistrationDate(LocalDateTime.now());
         newRest.setOwner(user);
+        newRest.setImages(restaurant.getImages());
         return restaurantRepo.save(newRest);
     }
 
@@ -40,6 +41,8 @@ public class RestaurantService {
             restaurant.setDescription(updatedRestaurant.getDescription());
         if(updatedRestaurant.getName() != null)
             restaurant.setName(updatedRestaurant.getName());
+        if(updatedRestaurant.getImages() != null)
+            restaurant.setImages(updatedRestaurant.getImages());
         return restaurantRepo.save(restaurant);
     }
 

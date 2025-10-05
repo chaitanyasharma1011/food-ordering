@@ -4,12 +4,12 @@ import { v4 } from "uuid";
 export const roles: Choices[] = [
   {
     id: v4(),
-    option: "CUSTOMER",
+    option: "ROLE_CUSTOMER",
     label: "Customer",
   },
   {
     id: v4(),
-    option: "RESTAURANT",
+    option: "ROLE_RESTAURANT_OWNER",
     label: "Restaurant",
   },
 ];

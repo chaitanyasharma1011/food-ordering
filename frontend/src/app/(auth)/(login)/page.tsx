@@ -2,15 +2,36 @@
 
 import AppInput from "@/components/input/textfield";
 import { onRenderInput } from "@/library/helper";
+import { useLoginUser } from "@/redux/slices/user/authApiSlice";
 import { Button } from "@mui/material";
+import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 
 export default function Login() {
-  const [form, setForm] = useState({});
+  const [loginUser, loggedinuser] = useLoginUser();
+  const [form, setForm] = useState<Record<string, string>>({});
   const router = useRouter();
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    let body = {
+      email: form.email || "",
+      password: form?.password || "",
+    };
+    loginUser({ body });
+  };
+
+  useEffect(() => {
+    const { data, error } = loggedinuser;
+    if (data) {
+      Cookies.set("jwtToken", data?.data?.jwt);
+      router.push("/home");
+    } else if (error) console.log(error);
+  }, [loggedinuser]);
+
   return (
-    <div className="flex flex-col space-y-6 w-full">
+    <form onSubmit={handleSubmit} className="flex flex-col space-y-6 w-full">
       <h2 className="font-montserrat text-black text-center font-semibold text-2xl uppercase">
         Login
       </h2>
@@ -18,7 +39,7 @@ export default function Login() {
       <AppInput
         label="Password"
         type="password"
-        {...onRenderInput(form, setForm, "email", "")}
+        {...onRenderInput(form, setForm, "password", "")}
       />
       <p>
         Don't have an account ?{" "}
@@ -29,7 +50,9 @@ export default function Login() {
           Signup
         </span>
       </p>
-      <Button variant="contained">Submit</Button>
-    </div>
+      <Button variant="contained" type="submit">
+        Submit
+      </Button>
+    </form>
   );
 }

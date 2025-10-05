@@ -1,5 +1,6 @@
 package com.chaitanya.food_ordering.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +18,9 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    @JsonIgnore
     @OneToOne
+    @JoinColumn(name="customer_id")
     private Users customer;
 
     private Long total;

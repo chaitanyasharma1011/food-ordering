@@ -4,6 +4,7 @@ import com.chaitanya.food_ordering.model.Restaurant;
 import com.chaitanya.food_ordering.model.Users;
 import com.chaitanya.food_ordering.request.CreateRestaurant;
 import com.chaitanya.food_ordering.request.MessageResponse;
+import com.chaitanya.food_ordering.response.ApiResponse;
 import com.chaitanya.food_ordering.service.RestaurantService;
 import com.chaitanya.food_ordering.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,18 +23,22 @@ public class AdminRestaurantController {
     @Autowired
     private RestaurantService restaurantService;
     @PostMapping("")
-    public ResponseEntity<Restaurant> createRestaurant(@RequestBody CreateRestaurant restaurant,
+    public ResponseEntity<ApiResponse<Restaurant>> createRestaurant(@RequestBody CreateRestaurant restaurant,
                                                        @RequestHeader("Authorization") String jwt) throws Exception {
         Users user = userService.userFromToken(jwt);
         Restaurant createdRest = restaurantService.createRestaurant(restaurant,user);
-        return new ResponseEntity<>(createdRest,HttpStatus.CREATED);
+        return new ResponseEntity<>
+                (new ApiResponse<>(true,"Creation Successful",createdRest, HttpStatus.CREATED.value())
+                        ,HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Restaurant> updateRestaurant(@RequestBody CreateRestaurant restaurant,
-                                                       @PathVariable UUID id) throws Exception {
+    @PatchMapping ("/{id}")
+    public ResponseEntity<ApiResponse<Restaurant>> updateRestaurant(@RequestBody CreateRestaurant restaurant,
+                                                                   @PathVariable UUID id) throws Exception {
         Restaurant updatedRest = restaurantService.updateRestaurant(id,restaurant);
-        return new ResponseEntity<>(updatedRest,HttpStatus.OK);
+        return new ResponseEntity<>
+                (new ApiResponse<>(true,"Update Successful",updatedRest, HttpStatus.OK.value())
+                        ,HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
@@ -44,12 +49,13 @@ public class AdminRestaurantController {
         return new ResponseEntity<>(messageResponse,HttpStatus.OK);
     }
 
-    @PutMapping("/{id}/status")
-    public ResponseEntity<MessageResponse> updateStatus(@PathVariable UUID id) throws Exception {
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<ApiResponse<MessageResponse>> updateStatus(@PathVariable UUID id) throws Exception {
         Restaurant restaurant = restaurantService.toggleStatus(id);
         MessageResponse messageResponse = new MessageResponse();
         messageResponse.setMessage("Updated successfully");
-        return new ResponseEntity<>(messageResponse,HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse<>
+                (true,"Toggled status", messageResponse,HttpStatus.OK.value()),HttpStatus.OK);
     }
 
     @GetMapping("")

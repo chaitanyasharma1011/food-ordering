@@ -1,8 +1,7 @@
 package com.chaitanya.food_ordering.model;
 
 import com.chaitanya.food_ordering.dto.RestaurantDto;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,6 +13,7 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -28,20 +28,14 @@ public class Users {
     @JsonIgnore
     private List<Orders> orders = new ArrayList<>();
 
-    @ElementCollection
-    private List<RestaurantDto> favourites = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name = "user_favourites")
+    @JsonIdentityReference(alwaysAsId = true)
+    private List<Restaurant> favourites = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> addresses = new ArrayList<>();
 
-//    public USER_ROLE getRole() {
-//        return this.role;
-//    }
-//
-//    public String getPassword() {
-//        return this.password;
-//    }
-//
-//    public String getEmail() {
-//        return this.email;
-//    }
+    @OneToOne(mappedBy = "customer",cascade = CascadeType.ALL, orphanRemoval = true)
+    private Cart cart;
+
 }

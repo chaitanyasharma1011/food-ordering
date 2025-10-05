@@ -1,9 +1,11 @@
 package com.chaitanya.food_ordering.controller;
 
 import com.chaitanya.food_ordering.model.Users;
+import com.chaitanya.food_ordering.response.ApiResponse;
 import com.chaitanya.food_ordering.response.AuthResponse;
 import com.chaitanya.food_ordering.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,12 +19,14 @@ public class AuthController {
     private UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<AuthResponse> registerUser(@RequestBody Users user) throws Exception{
-        return userService.registerUser(user);
+    public ResponseEntity<ApiResponse<AuthResponse>> registerUser(@RequestBody Users user) throws Exception{
+        return new ResponseEntity<>(new ApiResponse<>(true,"Registration Successful",
+                userService.registerUser(user) , HttpStatus.CREATED.value()),HttpStatus.CREATED) ;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> loginUser(@RequestBody Users user) throws Exception{
-        return userService.loginUser(user);
+    public ResponseEntity<ApiResponse<AuthResponse>> loginUser(@RequestBody Users user) throws Exception{
+        return new ResponseEntity<>(new ApiResponse<>(true,"Login Successful",
+                userService.loginUser(user) , HttpStatus.OK.value()),HttpStatus.OK) ;
     }
 }

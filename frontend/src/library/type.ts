@@ -1,3 +1,17 @@
+import store from "@/redux/store";
+
+export type roles = "ROLE_CUSTOMER" | "ROLE_RESTAURANT_OWNER";
+
+export interface User {
+  id: string;
+  fullName: string;
+  email: string;
+  role: roles;
+  favourites: Record<string, string>[];
+  addresses: Address[];
+  cart: Record<string, string>;
+}
+
 export interface Category {
   id: string;
   name: string;
@@ -8,7 +22,7 @@ export interface Restaurant {
   id: string;
   name: string;
   description: string;
-  image: string;
+  images: string[];
   open: boolean;
 }
 
@@ -33,6 +47,15 @@ export interface Order {
   amount: number;
   restaurant: string;
 }
+
+export interface ApiResponse {
+  success: boolean;
+  data: Record<string, any> | null;
+  status: number;
+  message: string;
+}
+
+export type ReduxStoreType = ReturnType<typeof store.getState>;
 
 // @Id
 //     @GeneratedValue(strategy = GenerationType.UUID)
