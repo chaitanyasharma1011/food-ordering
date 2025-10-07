@@ -3,6 +3,7 @@ package com.chaitanya.food_ordering.controller;
 import com.chaitanya.food_ordering.model.Category;
 import com.chaitanya.food_ordering.model.Restaurant;
 import com.chaitanya.food_ordering.model.Users;
+import com.chaitanya.food_ordering.response.ApiResponse;
 import com.chaitanya.food_ordering.service.CategoryService;
 import com.chaitanya.food_ordering.service.RestaurantService;
 import com.chaitanya.food_ordering.service.UserService;
@@ -28,16 +29,18 @@ public class CategoryController {
     private RestaurantService restaurantService;
 
     @PostMapping("/admin/category")
-    public ResponseEntity<Category> createCategory(@RequestBody Category reqCategory, @RequestHeader("Authorization") String jwt) throws Exception{
+    public ResponseEntity<ApiResponse<Category>> createCategory(@RequestBody Category reqCategory, @RequestHeader("Authorization") String jwt) throws Exception{
         Users user = userService.userFromToken(jwt);
         Category category = categoryService.createCategory(reqCategory.getName(),user.getId());
-        return new ResponseEntity<>(category, HttpStatus.CREATED);
+        return new ResponseEntity<>(new ApiResponse<>
+                (true, "Category created Successfully", category,HttpStatus.CREATED.value()), HttpStatus.CREATED);
     }
 
-    @GetMapping("/{rid}/category")
-    public ResponseEntity<List<Category>> getCategory(@PathVariable UUID id) throws Exception{
+    @GetMapping("/{id}/category")
+    public ResponseEntity<ApiResponse<List<Category>>> getCategory(@PathVariable UUID id) throws Exception{
         List<Category> categories = categoryService.findCategoryByRestaurantId(id);
-        return new ResponseEntity<>(categories, HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse<>(true,
+                "Fetched Successfully",categories,HttpStatus.OK.value()), HttpStatus.OK);
     }
 
     @GetMapping("/admin/category")

@@ -5,6 +5,7 @@ import { Restaurant } from "@/library/type";
 import { useFetchRestaurantsQuery } from "@/redux/slices/restaurant/restaurantApiSlice";
 import { useToggleFavourites } from "@/redux/slices/user/userApiSlice";
 import { userState } from "@/redux/slices/user/userSlice";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 import { useSelector } from "react-redux";
@@ -21,17 +22,19 @@ const renderStatus = (open: boolean) => (
 
 const Card = ({ restaurant }: { restaurant: Restaurant }) => {
   const { user = {} } = useSelector(userState);
+  const router = useRouter();
   const { favourites = [] } = user;
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [fav, setFav] = useState(favourites.includes(restaurant?.id));
-  const [toggleFav, setToggleFav] = useToggleFavourites();
+  const [toggleFav, toggledfav] = useToggleFavourites();
 
   const handleToggle = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    // if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setFav((prev: boolean) => !prev);
-    timeoutRef.current = setTimeout(() => {
-      toggleFav({ id: restaurant.id });
-    }, 500);
+    toggleFav({ id: restaurant.id });
+    // timeoutRef.current = setTimeout(() => {
+    //   toggleFav({ id: restaurant.id });
+    // }, 500);
   };
 
   useEffect(() => {
@@ -41,8 +44,9 @@ const Card = ({ restaurant }: { restaurant: Restaurant }) => {
 
   return (
     <div
-      className="w-full h-[400px] bg-cover relative rounded-2xl flex flex-col justify-end"
+      className="w-full h-[400px] bg-cover bg-center relative rounded-2xl flex flex-col justify-end cursor-pointer transition-all duration-200 hover:-translate-y-2"
       style={{ backgroundImage: `url(${restaurant.images[0]})` }}
+      onClick={() => router.push(`/restaurant/${restaurant?.id}`)}
       key={restaurant.id}
     >
       <div className="w-full py-8 px-4 bg-[#F0F0F0] space-y-4 flex flex-col">

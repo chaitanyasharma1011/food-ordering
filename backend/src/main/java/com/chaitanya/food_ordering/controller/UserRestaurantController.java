@@ -30,8 +30,9 @@ public class UserRestaurantController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Restaurant> searchRestaurant(@PathVariable UUID id){
+    public ResponseEntity<ApiResponse<Restaurant>> fetchRestaurant(@PathVariable UUID id){
         Restaurant restaurant = restaurantService.findById(id);
-        return new ResponseEntity<>(restaurant,HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse<>(true,
+                "Restaurant data fetched successfully",restaurant,HttpStatus.OK.value()),HttpStatus.OK);
     }
 }

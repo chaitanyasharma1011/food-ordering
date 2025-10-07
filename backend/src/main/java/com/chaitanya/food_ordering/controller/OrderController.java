@@ -28,13 +28,13 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<Orders> addOrder(@RequestBody OrderRequest req,
-                                             @RequestHeader("Authorisation") String jwt) throws Exception{
+                                             @RequestHeader("Authorization") String jwt) throws Exception{
         Orders order = orderService.createOrder(req, jwt);
         return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
 
     @GetMapping("/history")
-    public ResponseEntity<List<Orders>> getUserOrders(@RequestHeader("Authorisation") String jwt) throws Exception{
+    public ResponseEntity<List<Orders>> getUserOrders(@RequestHeader("Authorization") String jwt) throws Exception{
         Users user = userService.userFromToken(jwt);
         List<Orders> orders = orderService.getUsersOrder(user.getId());
         return new ResponseEntity<>(orders, HttpStatus.OK);

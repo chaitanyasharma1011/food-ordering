@@ -9,8 +9,16 @@ const restaurantApiSlice = apiGrabitSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    fetchRestaurant: build.query<ApiResponse, { id: string }>({
+      query: ({ id }) => ({
+        url: `/api/restaurants/${id}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useLazyFetchRestaurantsQuery: useFetchRestaurantsQuery } =
-  restaurantApiSlice;
+export const {
+  useLazyFetchRestaurantsQuery: useFetchRestaurantsQuery,
+  useLazyFetchRestaurantQuery: useFetchRestaurantQuery,
+} = restaurantApiSlice;

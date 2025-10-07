@@ -23,7 +23,7 @@ public class Cart {
     @JoinColumn(name="customer_id")
     private Users customer;
 
-    private Long total;
+//    private Long total;
 
     @OneToMany(mappedBy = "cart",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<CartItem> items = new ArrayList<>();

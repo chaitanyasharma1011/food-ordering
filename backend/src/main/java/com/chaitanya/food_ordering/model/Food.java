@@ -1,5 +1,6 @@
 package com.chaitanya.food_ordering.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,11 +25,13 @@ public class Food {
     private Long price;
 
     @ManyToOne
+    @JsonIdentityReference(alwaysAsId = true)
     private Category foodCategory;
 
     private List<String> images;
     private boolean available;
 
+    @JsonIdentityReference(alwaysAsId = true)
     @ManyToOne
     private Restaurant restaurant;
     private boolean isVegetarian;

@@ -45,7 +45,7 @@ public class IngredientsService {
         Restaurant restaurant = restaurantService.findById(rid);
         ingredientItems.setName(name);
         ingredientItems.setCategory(ingredientCategory);
-        ingredientCategory.setRestaurant(restaurant);
+        ingredientItems.setRestaurant(restaurant);
         return ingredientsItemRepo.save(ingredientItems);
     }
 
@@ -54,9 +54,13 @@ public class IngredientsService {
     }
 
     public IngredientItems updateStock(UUID id){
-        IngredientItems item = ingredientsItemRepo.findById(id)
-                .orElseThrow(()->new RuntimeException("Item doesn't exist"));
+        IngredientItems item = findIngredientById(id);
         item.setInStock(!item.isInStock());
         return ingredientsItemRepo.save(item);
+    }
+
+    public IngredientItems findIngredientById(UUID id){
+        return ingredientsItemRepo.
+                findById(id).orElseThrow(()->new RuntimeException("Item doesn't exist"));
     }
 }

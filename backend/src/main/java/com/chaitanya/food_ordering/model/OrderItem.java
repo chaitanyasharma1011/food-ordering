@@ -21,5 +21,6 @@ public class OrderItem {
     private Food food;
     private Long quantity;
     private Long totalPrice;
-    private List<String> ingredients;
+    @ManyToMany
+    private List<IngredientItems> ingredients;
 }

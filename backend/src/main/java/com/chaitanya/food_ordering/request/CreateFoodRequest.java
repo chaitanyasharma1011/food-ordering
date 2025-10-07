@@ -16,13 +16,13 @@ public class CreateFoodRequest {
     private String name;
     private String description;
     private Long price;
-    private Category foodCategory;
+    private UUID category;
 
     private List<String> images;
     private boolean available;
 
-    private boolean isVegetarian;
-    private boolean isSeasonal;
+    private boolean vegetarian;
+    private boolean seasonal;
 
-    private List<IngredientItems> ingredients = new ArrayList<>();
+    private List<UUID> ingredients ;
 }

@@ -26,6 +26,9 @@ public class CartService {
     @Autowired
     private CartItemRepository cartItemRepository;
 
+    @Autowired
+    private IngredientsService ingredientsService;
+
     public CartItem addCartItem(AddCartItemRequest item, String jwt) throws Exception{
         CartItem newItem = new CartItem();
         Food food = foodService.findFoodById(item.getFoodId());
@@ -40,9 +43,11 @@ public class CartService {
         newItem.setFood(food);
         newItem.setTotalPrice(item.getQuantity() * food.getPrice());
         newItem.setQuantity(item.getQuantity());
-        newItem.setIngredients(item.getIngredients());
+        newItem.setIngredients(item.getIngredients()
+                .stream().map(id->ingredientsService.findIngredientById(id)).toList());
         newItem.setCart(cart);
         cart.addItem(newItem);
+//        cart.setTotal(calculateCartTotal(cart));
         cartRepo.save(cart);
         return newItem;
     }
@@ -72,6 +77,7 @@ public class CartService {
         Cart cart = findCartByUserId(users.getId());
         CartItem cartItem = findCartItemById(id);
         cart.removeItem(cartItem);
+//        cart.setTotal(calculateCartTotal(cart));
         return cartRepo.save(cart);
     }
 
@@ -85,7 +91,9 @@ public class CartService {
     public Cart clearCart(String jwt) throws Exception{
         Users users = userService.userFromToken(jwt);
         Cart cart = findCartByUserId(users.getId());
+
         cart.getItems().clear();
+//        cart.setTotal(calculateCartTotal(cart));
         return cartRepo.save(cart);
     }
 

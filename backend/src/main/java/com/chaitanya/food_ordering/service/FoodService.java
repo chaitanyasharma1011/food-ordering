@@ -1,12 +1,15 @@
 package com.chaitanya.food_ordering.service;
 
+import com.chaitanya.food_ordering.model.Category;
 import com.chaitanya.food_ordering.model.Food;
+import com.chaitanya.food_ordering.model.IngredientItems;
 import com.chaitanya.food_ordering.model.Restaurant;
 import com.chaitanya.food_ordering.repository.FoodRepository;
 import com.chaitanya.food_ordering.request.CreateFoodRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -17,15 +20,29 @@ public class FoodService {
     @Autowired
     private FoodRepository foodRepository;
 
-    public Food createFood(CreateFoodRequest food, Restaurant restaurant){
+    @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
+    private RestaurantService restaurantService;
+
+    @Autowired
+    private IngredientsService ingredientsService;
+
+    public Food createFood(CreateFoodRequest food, UUID uid){
+        System.out.println(food);
         Food createdFood = new Food();
+        Restaurant rest = restaurantService.findByOwnerId(uid);
+        Category category = categoryService.findCategoryById(food.getCategory());
         createdFood.setName(food.getName());
-        createdFood.setFoodCategory(food.getFoodCategory());
+        createdFood.setFoodCategory(category);
         createdFood.setDescription(food.getDescription());
         createdFood.setImages(food.getImages());
-        createdFood.setIngredients(food.getIngredients());
+        List <IngredientItems> ingredientItems = food.getIngredients().stream().
+                map( id -> ingredientsService.findIngredientById(id)).toList();
+        createdFood.setIngredients(ingredientItems);
         createdFood.setPrice(food.getPrice());
-        createdFood.setRestaurant(restaurant);
+        createdFood.setRestaurant(rest);
         createdFood.setAvailable(food.isAvailable());
         createdFood.setVegetarian(food.isVegetarian());
         return foodRepository.save(createdFood);
@@ -52,6 +69,10 @@ public class FoodService {
         if(isSeasonal != null) foods = filterBySeasonal(foods, isSeasonal);
         if(foodCategory != null && !foodCategory.isEmpty()) 
             foods = filterByCategory(foods, foodCategory);
+        System.out.println(isSeasonal);
+        System.out.println(isVegeterian);
+        System.out.println(foodCategory);
+//        System.out.println(foods);
         return foods;
     }
 
@@ -59,7 +80,7 @@ public class FoodService {
         return foods.stream()
                 .filter(food -> {
                     if(food.getFoodCategory() != null)
-                        return food.getFoodCategory().getName().equals(foodCategory);
+                        return food.getFoodCategory().getName().contains(foodCategory);
                     return false;
                 }).collect(Collectors.toList());
     }

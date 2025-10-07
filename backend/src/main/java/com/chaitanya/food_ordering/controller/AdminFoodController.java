@@ -5,6 +5,7 @@ import com.chaitanya.food_ordering.model.Restaurant;
 import com.chaitanya.food_ordering.model.Users;
 import com.chaitanya.food_ordering.request.CreateFoodRequest;
 import com.chaitanya.food_ordering.request.MessageResponse;
+import com.chaitanya.food_ordering.response.FoodResponse;
 import com.chaitanya.food_ordering.service.FoodService;
 import com.chaitanya.food_ordering.service.RestaurantService;
 import com.chaitanya.food_ordering.service.UserService;
@@ -22,16 +23,13 @@ public class AdminFoodController {
     private FoodService foodService;
 
     @Autowired
-    private RestaurantService restaurantService;
-
-    @Autowired
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<Food> createFood(CreateFoodRequest food, @RequestHeader("Authorization") String jwt) throws Exception{
+    public ResponseEntity<Food> createFood(@RequestBody CreateFoodRequest food, @RequestHeader("Authorization") String jwt) throws Exception{
         Users user = userService.userFromToken(jwt);
-        Restaurant rest = restaurantService.findByOwnerId(user.getId());
-        Food createdFood = foodService.createFood(food, rest);
+        System.out.println("Creating food...");
+        Food createdFood = foodService.createFood(food, user.getId());
         return new ResponseEntity<>(createdFood,HttpStatus.CREATED);
     }
 

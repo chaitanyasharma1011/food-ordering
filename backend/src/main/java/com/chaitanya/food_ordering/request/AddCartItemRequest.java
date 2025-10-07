@@ -1,6 +1,7 @@
 package com.chaitanya.food_ordering.request;
 
 
+import com.chaitanya.food_ordering.model.IngredientItems;
 import lombok.Data;
 
 import java.util.List;
@@ -11,6 +12,6 @@ public class AddCartItemRequest {
 
     private UUID foodId;
     private Long quantity;
-    private List<String> ingredients;
+    private List<UUID> ingredients;
 
 }
